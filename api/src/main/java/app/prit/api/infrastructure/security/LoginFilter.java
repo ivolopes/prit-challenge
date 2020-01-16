@@ -1,6 +1,7 @@
 package app.prit.api.infrastructure.security;
 
 import app.prit.api.domain.entity.User;
+import app.prit.api.infrastructure.core.rest.user.v1.dto.UserDto;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -27,8 +29,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException {
         try {
-            User credentials = new ObjectMapper()
-                    .readValue(httpServletRequest.getInputStream(), User.class);
+            UserDto credentials = new ObjectMapper()
+                    .readValue(httpServletRequest.getInputStream(), UserDto.class);
 
             return getAuthenticationManager().authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -53,5 +55,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
                 .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()));
         res.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
+
+        PrintWriter out = res.getWriter();
+        res.setContentType("application/json");
+        res.setCharacterEncoding("UTF-8");
+        out.print("{\"access_token\": \""+SecurityConstants.TOKEN_PREFIX + token+"\"}");
+        out.flush();
+
     }
 }
