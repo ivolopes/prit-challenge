@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserApplicationPort extends UserDetailsService {
 
-    UserDto save(String email, String password);
+    UserDto save(String name, String email, String password);
 
     UserDto findByEmail(String email);
 

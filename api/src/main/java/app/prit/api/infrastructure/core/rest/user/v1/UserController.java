@@ -24,9 +24,9 @@ public class UserController {
                 this.userApplication = userApplication;
         }
 
-        public ResponseEntity<UserDto> add(@RequestHeader("Authorization") String authorization,
-                                           @RequestBody UserDto userDto){
-                UserDto dto = userApplication.save(userDto.getEmail(), userDto.getPassword());
+        @PostMapping
+        public ResponseEntity<UserDto> add(@RequestBody UserDto userDto){
+                UserDto dto = userApplication.save(userDto.getName(), userDto.getEmail(), userDto.getPassword());
 
                 URI uri = URI.create("/api/v1/users/"+dto.getId());
 

@@ -7,6 +7,7 @@ import app.prit.api.infrastructure.core.rest.user.v1.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,17 +17,21 @@ public class UserApplication implements UserApplicationPort {
 
     private UserDataPort userData;
 
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
-    public UserApplication(UserDataPort userData){
+    public UserApplication(UserDataPort userData, BCryptPasswordEncoder bCryptPasswordEncoder){
         this.userData = userData;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
-    public UserDto save(String email, String password) {
+    public UserDto save(String name, String email, String password) {
 
         User user = User.builder()
+                .name(name)
                 .email(email)
-                .password(password).build();
+                .password(bCryptPasswordEncoder.encode(password)).build();
 
         user = userData.save(user);
 
@@ -58,6 +63,7 @@ public class UserApplication implements UserApplicationPort {
 
     private UserDto convertToDto(User user){
         return UserDto.builder().id(user.getId())
+                .name(user.getName())
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .build();

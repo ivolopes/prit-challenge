@@ -20,6 +20,11 @@ public class User {
 
     @Setter(AccessLevel.PRIVATE)
     @NonNull
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Setter(AccessLevel.PRIVATE)
+    @NonNull
     @Column(name = "email", nullable = false)
     private String email;
 
