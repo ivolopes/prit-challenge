@@ -9,12 +9,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LoginComponent } from './component/login/login.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { ProductComponent } from './component/product/product.component';
+import { UserComponent } from './component/user/user.component';
+import { NewComponent } from './dialog/product/new/new.component';
+import { EditComponent } from './dialog/product/edit/edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProductComponent,
+    UserComponent,
+    NewComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,25 @@
+<h3 style="margin-left: 20px;">Produto</h3>
+
+<table class="table" style="width: 90%; margin-left: 10px;">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Preço</th>
+        <th scope="col"> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <th scope="row">{{product.id}}</th>
+        <td>{{product.name}}</td>
+        <td>{{product.description}}</td>
+        <td>{{product.price}}</td>
+        <td>
+            <button type="button" (click)="edit(product)" class="btn btn-primary">Editar</button>
+            <button type="button" (click)="delete(product.id)" class="btn btn-danger">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

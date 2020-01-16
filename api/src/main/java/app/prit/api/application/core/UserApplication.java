@@ -28,10 +28,7 @@ public class UserApplication implements UserApplicationPort {
     @Override
     public UserDto save(String name, String email, String password) {
 
-        User user = User.builder()
-                .name(name)
-                .email(email)
-                .password(bCryptPasswordEncoder.encode(password)).build();
+        User user = User.of(name, email, bCryptPasswordEncoder.encode(password));
 
         user = userData.save(user);
 

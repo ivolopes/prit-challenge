@@ -1,4 +1,8 @@
 export interface User {
+    id: number;
+    name: string;
+    email: string;
+    paswword: string;
 }
 
 export interface LoginResponse {

@@ -1,7 +1,7 @@
 <div class="container" style="display: flex;justify-content: center;align-items: center;height: 100vh;">
     <div class="card" style="width: 50%;">
       <div class="card-body">
-        <h5 class="card-title">Login Form</h5>
+        <h5 class="card-title">Login</h5>
         <div class="card-text">
           <form (ngSubmit)="login()" #form="ngForm">
             <div class="form-group">
@@ -16,5 +16,6 @@
           </form>
         </div>
       </div>
+      <button type="button" (click)="novoUsuario()" class="btn btn-secondary btn-lg btn-block">Usuário novo</button>
     </div>
   </div>

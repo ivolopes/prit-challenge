@@ -17,6 +17,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -34,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.cors().and().csrf().ignoringAntMatchers("/h2/**","/favicon.ico").disable().authorizeRequests()
-                .antMatchers("/h2/**","/favicon.ico","/v2/api-docs").permitAll()
+                .antMatchers("/h2/**","/favicon.ico","/v2/api-docs","/api/v1/users/").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -53,8 +56,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
+
+        final CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Collections.singletonList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+
+        configuration.setAllowCredentials(true);
+
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 

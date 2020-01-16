@@ -43,4 +43,13 @@ public class User {
 
     }
 
+    public static User of(String name, String email, String password){
+        return User.builder()
+                .name( Objects.requireNonNull(name, "Name is required"))
+                .email(Objects.requireNonNull(email, "Email is required"))
+                .password(Objects.requireNonNull(password, "Password is required"))
+                .active(true)
+                .build();
+    }
+
 }
