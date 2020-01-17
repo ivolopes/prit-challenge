@@ -1,6 +1,15 @@
-<h3 style="margin-left: 20px;">Produto</h3>
-
-<table class="table" style="width: 90%; margin-left: 10px;">
+<div class="container">
+  <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="col-sm">
+      <h3>Produtos</h3>
+    </div>
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+      <button type="button" (click)="openDialogAdd()" class="btn btn-secondary btn-block">Adicionar Produto</button>
+    </div>
+  </div>
+  <table class="table">
     <thead class="thead-dark">
       <tr>
         <th scope="col">Id</th>
@@ -17,9 +26,15 @@
         <td>{{product.description}}</td>
         <td>{{product.price}}</td>
         <td>
-            <button type="button" (click)="edit(product)" class="btn btn-primary">Editar</button>
+            <button type="button" (click)="edit(product)" style="margin-right: 10px;" class="btn btn-primary">Editar</button>
             <button type="button" (click)="delete(product.id)" class="btn btn-danger">Excluir</button>
         </td>
       </tr>
     </tbody>
   </table>
+  <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="col-sm">
+      <button type="button" (click)="home()" class="btn btn-secondary btn-block">Voltar</button>
+    </div>
+  </div>
+</div>

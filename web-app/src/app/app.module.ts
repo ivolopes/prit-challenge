@@ -11,8 +11,10 @@ import { LoginComponent } from './component/login/login.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { ProductComponent } from './component/product/product.component';
 import { UserComponent } from './component/user/user.component';
-import { NewComponent } from './dialog/product/new/new.component';
-import { EditComponent } from './dialog/product/edit/edit.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ProductAddDialog } from './dialog/product/product-add-dialog/product-add-dialog.component';
+import { ProductEditDialog } from './dialog/product/product-edit-dialog/product-edit-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -21,13 +23,18 @@ import { EditComponent } from './dialog/product/edit/edit.component';
     DashboardComponent,
     ProductComponent,
     UserComponent,
-    NewComponent,
-    EditComponent
+    ProductAddDialog,
+    ProductEditDialog
+  ],
+  entryComponents: [
+    ProductAddDialog,
+    ProductEditDialog
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    MatDialogModule,
     HttpClientModule,
     JwtModule.forRoot({
       config: {
@@ -37,7 +44,8 @@ import { EditComponent } from './dialog/product/edit/edit.component';
         whitelistedDomains: ['localhost'],
         blacklistedRoutes: ['localhost/auth/login']
       }
-    })
+    }),
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

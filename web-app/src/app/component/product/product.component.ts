@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
 import { Router } from '@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ProductEditDialog } from 'src/app/dialog/product/product-edit-dialog/product-edit-dialog.component';
+import { ProductAddDialog } from 'src/app/dialog/product/product-add-dialog/product-add-dialog.component';
 
 @Component({
   selector: 'app-product',
@@ -14,7 +17,8 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -23,11 +27,15 @@ export class ProductComponent implements OnInit {
     })
   }
 
+  home(){
+    this.router.navigate(['dashboard']);
+  }
+
   delete(id:number){
     if( confirm("Deseja excluir o produto?") ){
       this.productService.delete(id).subscribe( () => {
         alert("Produto excluído");
-        this.router.navigate(['product']);
+        window.location.reload();
       }, error => {
         console.error(error);
       });
@@ -36,6 +44,32 @@ export class ProductComponent implements OnInit {
 
   edit(product:Product){
 
+    var data = {
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      price: product.price
+    };
+
+    const dialogRef = this.dialog.open(ProductEditDialog, {
+      width: '500px',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      window.location.reload();
+    });
+  }
+
+  openDialogAdd(): void {
+    const dialogRef = this.dialog.open(ProductAddDialog, {
+      width: '400px',
+      height: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      window.location.reload();
+    });
   }
 
 }

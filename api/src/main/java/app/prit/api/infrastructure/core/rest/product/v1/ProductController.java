@@ -47,9 +47,10 @@ public class ProductController {
                 return ResponseEntity.ok(productDtoList);
         }
 
-        @PutMapping
-        public ResponseEntity<ProductDto> update(@RequestBody ProductDto productDto){
-                ProductDto product = productApplication.update(productDto.getId(),
+        @PutMapping("/{id}")
+        public ResponseEntity<ProductDto> update(@PathVariable Integer id,
+                                                 @RequestBody ProductDto productDto){
+                ProductDto product = productApplication.update(id,
                         productDto.getName(),
                         productDto.getDescription(),
                         productDto.getPrice());
