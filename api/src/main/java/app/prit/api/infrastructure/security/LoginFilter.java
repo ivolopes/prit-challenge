@@ -56,10 +56,13 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
                 .sign(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()));
         res.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
 
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setAccessToken(SecurityConstants.TOKEN_PREFIX + token);
+
         PrintWriter out = res.getWriter();
         res.setContentType("application/json");
         res.setCharacterEncoding("UTF-8");
-        out.print("{\"access_token\": \""+SecurityConstants.TOKEN_PREFIX + token+"\"}");
+        out.print(loginResponse);
         out.flush();
 
     }
