@@ -12,5 +12,5 @@ java -jar target/api-0.0.1-SNAPSHOT.jar
 
 2.2 - Docker
 
-docker build -t prit-api .
-docker run -p 8080:8080 --rm prit-api
+- docker build -t prit-api .
+- docker run -p 8080:8080 --rm prit-api
