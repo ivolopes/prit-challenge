@@ -2,13 +2,13 @@ Para rodar a api é necessário rodar os scripts abaixo na raiz do projeto:
 
 1 - Gerar o arquivo JAR
 
-./mvnw clean install
+- ./mvnw clean install
 
 2 - Rodar o projeto
 
 2.1 - Localmente utilizando JAVA 11 
 
-java -jar target/api-0.0.1-SNAPSHOT.jar
+- java -jar target/api-0.0.1-SNAPSHOT.jar
 
 2.2 - Docker
 
