@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { JwtModule } from '@auth0/angular-jwt';
 import { LoginComponent } from './component/login/login.component';
@@ -15,6 +15,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductAddDialog } from './dialog/product/product-add-dialog/product-add-dialog.component';
 import { ProductEditDialog } from './dialog/product/product-edit-dialog/product-edit-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UnauthorizedInterceptor } from './component/interceptor/interceptor.module';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     }),
     NoopAnimationsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UnauthorizedInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

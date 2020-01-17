@@ -6,18 +6,18 @@
             <form (ngSubmit)="salvar()" #form="ngForm">
                 <div class="form-group">
                     <label for="name">Nome</label>
-                    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="data.name" placeholder="Informe o Nome">
+                    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="data.name" placeholder="Informe o Nome" required>
                 </div>
                 <div class="form-group">
                     <label for="description">Descrição</label>
-                    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="data.description" placeholder="Informe a Descrição">
+                    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="data.description" placeholder="Informe a Descrição" required>
                 </div>
                 <div class="form-group">
                     <label for="price">Preço</label>
-                    <input type="text" class="form-control" id="price" name="price" [(ngModel)]="data.price" placeholder="Informe o Preço">
+                    <input type="text" class="form-control" id="price" name="price" [(ngModel)]="data.price" placeholder="Informe o Preço" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" style="margin-right: 20px;" class="btn btn-primary">Editar</button>
+                    <button type="submit" style="margin-right: 20px;" [disabled]="submitted || !form.valid" class="btn btn-primary">Editar</button>
                     <button type="button" (click)="onNoClick()" class="btn btn-secondary">Fechar</button>
                 </div>
             </form>
