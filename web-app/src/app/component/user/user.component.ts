@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user',
@@ -9,11 +10,17 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserComponent implements OnInit {
 
+  @ViewChild('form', {
+    static: false
+  }) form: NgForm;
+
   model: any = {
     name:null,
     email:null,
     password:null
   };
+  erroMessage: string;
+  success: boolean;
 
   constructor(
     private router: Router,
@@ -24,14 +31,16 @@ export class UserComponent implements OnInit {
   }
 
   salvar(){
+      this.erroMessage = undefined;
+      this.success = false;
       this.userService.save(this.model)
       .subscribe(
         data => {
-          alert("Usuário cadastrado com sucesso");
-          this.voltar();
+          this.success = true;
+          this.form.reset();
         },
         error => {
-          alert("Ocorreu um problema ao incluir o usuário");
+          this.erroMessage = error.error.message;
       })
   }
 

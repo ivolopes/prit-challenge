@@ -4,6 +4,7 @@ import app.prit.api.domain.entity.User;
 import app.prit.api.infrastructure.core.port.application.UserApplicationPort;
 import app.prit.api.infrastructure.core.port.data.UserDataPort;
 import app.prit.api.infrastructure.core.rest.user.v1.dto.UserDto;
+import app.prit.api.infrastructure.exceptions.NotAcceptableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,7 +29,17 @@ public class UserApplication implements UserApplicationPort {
     @Override
     public UserDto save(String name, String email, String password) {
 
-        User user = User.of(name, email, bCryptPasswordEncoder.encode(password));
+        if( password.length() < 6 ){
+            throw new NotAcceptableException("A senha tem que ter no minimo 6 caracteres");
+        }
+
+        User user = userData.findByEmail(email);
+
+        if( user != null){
+            throw new NotAcceptableException("E-mail já cadastrado");
+        }
+
+        user = User.of(name, email, bCryptPasswordEncoder.encode(password));
 
         user = userData.save(user);
 

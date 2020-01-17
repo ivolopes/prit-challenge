@@ -24,7 +24,7 @@
         <th scope="row">{{product.id}}</th>
         <td>{{product.name}}</td>
         <td>{{product.description}}</td>
-        <td>{{product.price}}</td>
+        <td>{{getFormattedPrice(product.price)}}</td>
         <td>
             <button type="button" (click)="edit(product)" style="margin-right: 10px;" class="btn btn-primary">Editar</button>
             <button type="button" (click)="delete(product.id)" class="btn btn-danger">Excluir</button>
